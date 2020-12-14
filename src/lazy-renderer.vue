@@ -97,7 +97,7 @@ export default {
 
     cleanup() {
       if (doesWindowHaveIo) {
-        io.unobserve(this.$el);
+        io.disconnect();
       } else {
         this.listenedEvents.forEach((event) => {
           window.removeEventListener(
