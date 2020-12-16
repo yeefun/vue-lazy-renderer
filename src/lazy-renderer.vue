@@ -55,10 +55,12 @@ export default {
 
       io.observe(this.$el);
     },
-    handleIntersection([entry]) {
-      if (entry.isIntersecting) {
-        this.load();
-      }
+    handleIntersection(entries) {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          this.load();
+        }
+      });
     },
 
     observeViewportToLoadWithThrottle() {
