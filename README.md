@@ -4,10 +4,10 @@
 
 ## Feature
 
-- *Speed.* Use the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) (IO) to prevent performance problems.
-- *Degrade Gracefully.* If a user's browser doesn't support the IO, use [getBoundingClientRect](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect) instead. (vue-lazy-renderer does not load the [IO polyfill](https://github.com/w3c/IntersectionObserver/tree/master/polyfill)—it is too fat. You can load it by yourself.)
-- *Lightweight.* Only [4.5 kB minified](https://bundlephobia.com/result?p=vue-lazy-renderer).
-- *Highly Customized.* You can globally set several options and locally override them.
+- **Speed.** Use the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) (IO) to prevent performance problems.
+- **Degrade Gracefully.** If a user's browser doesn't support the IO, use [getBoundingClientRect](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect) instead. (vue-lazy-renderer does not load the [IO polyfill](https://github.com/w3c/IntersectionObserver/tree/master/polyfill)—it is too fat. You can load it by yourself.)
+- **Lightweight.** Only [4.5 kB minified](https://bundlephobia.com/result?p=vue-lazy-renderer).
+- **Highly Customized.** You can globally set several options and locally override them.
 
 ## Installation
 
@@ -36,24 +36,6 @@ import Vue from 'vue';
 Vue.use(VueLazyRenderer);
 ```
 
-Locally register:
-
-```javascript
-import LazyRenderer from 'vue-lazy-renderer';
-
-export default {
-  components: {
-    'lazy-renderer': LazyRenderer,
-  },
-};
-```
-
-Direct include with a script tag:
-
-```html
-<script src="https://unpkg.com/vue-lazy-renderer@1.1.0/dist/lazy-renderer.min.js"></script>
-```
-
 ### Example
 
 
@@ -65,10 +47,10 @@ Direct include with a script tag:
 | Parameter | Description | Type | Default |
 |---|---|-|-|
 | tagName | The tag name of the root node of `<lazy-renderer>` | String | 'div' |
-| preLoad | The proportion of a pre-loading height to `window.innerHeight` | Number | 1.5 |
+| preLoad | The proportion of a pre-loading height or width to `window.innerHeight` or `window.innerWidth` | Number | 1.5 |
 | observerOptions | The Intersection Observer options | Object | { rootMargin: '0px 50% 50% 0px' } |
 | listenedEvents | The events you want `window` to listen for (used by `getBoundingClientRect`) | Array | ['scroll', 'resize', 'orientationChange'] |
-| throttledWait | The number of milliseconds to throttle invocations to        | Number | 100 |
+| throttledWait | The number of milliseconds to throttle invocations to | Number | 100 |
 
 ### Events
 | Name | Description |
