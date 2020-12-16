@@ -48,14 +48,11 @@ export default {
 
   methods: {
     initIo() {
-      io = new IntersectionObserver(
-        this.handleIntersection,
-        this.observerOptions
-      );
+      io = new IntersectionObserver(this.handleIntersect, this.observerOptions);
 
       io.observe(this.$el);
     },
-    handleIntersection(entries) {
+    handleIntersect(entries) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           this.load();
