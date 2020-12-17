@@ -12,17 +12,17 @@ const doesWindowHaveIo =
   'IntersectionObserverEntry' in window &&
   'intersectionRatio' in window.IntersectionObserverEntry.prototype;
 
-let io;
-
-let startTime = Date.now();
-let timeoutId;
-
 export default {
   name: 'LazyRenderer',
 
   data() {
     return {
       shouldLoadSlot: false,
+
+      io: undefined,
+
+      startTime: Date.now(),
+      timeoutId: undefined,
     };
   },
 
@@ -48,9 +48,12 @@ export default {
 
   methods: {
     initIo() {
-      io = new IntersectionObserver(this.handleIntersect, this.observerOptions);
+      this.io = new IntersectionObserver(
+        this.handleIntersect,
+        this.observerOptions
+      );
 
-      io.observe(this.$el);
+      this.io.observe(this.$el);
     },
     handleIntersect(entries) {
       entries.forEach((entry) => {
@@ -61,16 +64,19 @@ export default {
     },
 
     observeViewportToLoadWithThrottle() {
-      clearTimeout(timeoutId);
+      clearTimeout(this.timeoutId);
 
       const currentTime = Date.now();
 
-      if (currentTime - startTime > this.throttledWait) {
+      if (currentTime - this.startTime > this.throttledWait) {
         this.observeViewportToLoad();
 
-        startTime = currentTime;
+        this.startTime = currentTime;
       } else {
-        timeoutId = setTimeout(this.observeViewportToLoad, this.throttledWait);
+        this.timeoutId = setTimeout(
+          this.observeViewportToLoad,
+          this.throttledWait
+        );
       }
     },
     observeViewportToLoad() {
@@ -96,7 +102,8 @@ export default {
 
     cleanup() {
       if (doesWindowHaveIo) {
-        io.disconnect();
+        this.io.disconnect();
+        this.io = undefined;
       } else {
         this.listenedEvents.forEach((event) => {
           window.removeEventListener(
