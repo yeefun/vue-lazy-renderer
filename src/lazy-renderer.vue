@@ -101,7 +101,7 @@ export default {
     },
 
     cleanup() {
-      if (doesWindowHaveIo) {
+      if (doesWindowHaveIo && this.io !== undefined) {
         this.io.disconnect();
         this.io = undefined;
       } else {
