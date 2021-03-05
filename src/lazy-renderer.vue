@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { getSharedProps, sharedComputed } from './utils.js';
+
 const isInBrowser = typeof window === 'object';
 const doesWindowHaveIo =
   isInBrowser &&
@@ -16,30 +18,7 @@ export default {
   name: 'LazyRenderer',
 
   props: {
-    tagName: {
-      type: String,
-      default: 'div',
-    },
-
-    observerOptions: {
-      type: Object,
-      default: undefined,
-    },
-
-    preLoad: {
-      type: Number,
-      default: 1.5,
-    },
-
-    listenedEvents: {
-      type: Array,
-      default: () => ['scroll', 'resize', 'orientationChange'],
-    },
-
-    throttledWait: {
-      type: Number,
-      default: 100,
-    },
+    ...getSharedProps(),
   },
 
   data() {
@@ -54,14 +33,7 @@ export default {
   },
 
   computed: {
-    defaultObserverOptions() {
-      if (this.observerOptions !== undefined) {
-        return this.observerOptions;
-      }
-
-      const percent = (this.preLoad - 1) * 100; // 1.5 -> 50
-      return { rootMargin: `0px ${percent}% ${percent}% 0px` };
-    },
+    ...sharedComputed,
   },
 
   mounted() {

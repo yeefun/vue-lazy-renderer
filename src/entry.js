@@ -1,58 +1,36 @@
 // Import vue component
 import component from '@/lazy-renderer.vue';
 
+import { getSharedProps, sharedComputed } from './utils.js';
+
 // install function executed by Vue.use()
 const install = function installLazyRenderer(Vue, options = {}) {
   if (install.installed) return;
   install.installed = true;
 
   const {
-    tagName = 'div',
+    tagName,
     observerOptions,
-    preLoad = 1.5,
-    listenedEvents = ['scroll', 'resize', 'orientationChange'],
-    throttledWait = 100,
+    preLoad,
+    listenedEvents,
+    throttledWait,
   } = options;
 
   Vue.component(
     component.name,
     Vue.extend(component).extend({
       props: {
-        tagName: {
-          type: String,
-          default: tagName,
-        },
-
-        observerOptions: {
-          type: Object,
-          default: () => observerOptions,
-        },
-
-        preLoad: {
-          type: Number,
-          default: preLoad,
-        },
-
-        listenedEvents: {
-          type: Array,
-          default: () => listenedEvents,
-        },
-
-        throttledWait: {
-          type: Number,
-          default: throttledWait,
-        },
+        ...getSharedProps({
+          tagName,
+          observerOptions: () => observerOptions,
+          preLoad,
+          listenedEvents,
+          throttledWait,
+        }),
       },
 
       computed: {
-        defaultObserverOptions() {
-          if (this.observerOptions !== undefined) {
-            return this.observerOptions;
-          }
-
-          const percent = (this.preLoad - 1) * 100; // 1.5 -> 50
-          return { rootMargin: `0px ${percent}% ${percent}% 0px` };
-        },
+        ...sharedComputed,
       },
     })
   );
