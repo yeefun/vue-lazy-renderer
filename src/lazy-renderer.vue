@@ -50,7 +50,7 @@ export default {
     initIo() {
       this.io = new IntersectionObserver(
         this.handleIntersect,
-        this.observerOptions
+        this.defaultObserverOptions
       );
 
       this.io.observe(this.$el);

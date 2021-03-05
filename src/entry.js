@@ -25,16 +25,7 @@ const install = function installLazyRenderer(Vue, options = {}) {
 
         observerOptions: {
           type: Object,
-          default: () => {
-            if (observerOptions !== undefined) {
-              return observerOptions;
-            }
-
-            // 1.5 -> 50
-            const percent = (preLoad - 1) * 100;
-
-            return { rootMargin: `0px ${percent}% ${percent}% 0px` };
-          },
+          default: () => observerOptions,
         },
 
         preLoad: {
@@ -50,6 +41,17 @@ const install = function installLazyRenderer(Vue, options = {}) {
         throttledWait: {
           type: Number,
           default: throttledWait,
+        },
+      },
+
+      computed: {
+        defaultObserverOptions() {
+          if (this.observerOptions !== undefined) {
+            return this.observerOptions;
+          }
+
+          const percent = (this.preLoad - 1) * 100; // 1.5 -> 50
+          return { rootMargin: `0px ${percent}% ${percent}% 0px` };
         },
       },
     })
