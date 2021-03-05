@@ -15,13 +15,13 @@
 
 <script>
 import Vue from 'vue';
-// import LazyRenderer from '@/lazy-renderer.vue';
+import LazyRenderer from '@/lazy-renderer.vue';
 
 export default Vue.extend({
   name: 'ServeDev',
-  // components: {
-  //   LazyRenderer,
-  // },
+  components: {
+    LazyRenderer,
+  },
 });
 </script>
 
