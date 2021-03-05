@@ -6,7 +6,7 @@
 
 - **Speed.** Use the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) (IO) to prevent performance problems.
 - **Degrade Gracefully.** If a user's browser doesn't support the IO, use [getBoundingClientRect](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect) instead. (vue-lazy-renderer does not load the [IO polyfill](https://github.com/w3c/IntersectionObserver/tree/master/polyfill)—it is too fat. You can load it by yourself.)
-- **Lightweight.** Only [3.7 kB minified](https://bundlephobia.com/result?p=vue-lazy-renderer).
+- **Lightweight.** Only [1.8 kB minified + gzipped](https://bundlephobia.com/result?p=vue-lazy-renderer).
 - **Highly Customized.** You can globally set several options and locally override them.
 
 ## Installation
